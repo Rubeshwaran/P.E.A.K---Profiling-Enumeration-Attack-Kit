@@ -1,33 +1,44 @@
-# 🏔️ P.E.A.K.
+# P.E.A.K.
 **Proactive Engine for Assessment & Knowledge**
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue) ![Flask](https://img.shields.io/badge/Flask-3.0-green) ![Status](https://img.shields.io/badge/Status-Active-success)
 
-**P.E.A.K.** is an AI-powered Offensive Security Orchestration platform designed for the modern red teamer. It unifies active reconnaissance, static mobile analysis, and LLM-driven attack planning into a single "Cyberpunk" Command Center.
+> **"The Ultimate Command Center for Modern Offensive Security."**
 
-## 🚀 Key Capabilities
+**P.E.A.K.** is an AI-powered Offensive Security Orchestration platform that unifies your entire pentesting toolkit into one "Cyberpunk" interface. It replaces disjointed CLI scripts with a fully automated, intelligent pipeline.
 
-### 🧠 P.E.A.K. Intelligence
-- **Active Profiling:** Probes targets for sensitive exposures (`.git`, `.env`, Admin Panels).
-- **Tech Stack Fingerprinting:** Identifies CMS, Frameworks, and Server technologies.
-- **AI Attack Planner:** Utilizes **Phi-3 (via Ollama)** to generate specific, executable attack commands (e.g., `sqlmap`, `wpscan`) based on real-time findings.
-- **CSV Export:** Generate instant intelligence reports.
+![PEAK Dashboard](dashboard_preview.png)
+*(Note: Client data in screenshots has been redacted for confidentiality)*
 
-### 📱 Mobile Ops (MobSF)
-- **Static Analysis:** Automated scanning of `.apk` and `.ipa` files.
-- **Vulnerability Scoring:** Auto-calculates security scores and extracts critical permissions/misconfigurations.
+---
 
-### 🖥️ Command Center
-- **Glassmorphism UI:** A reactive, dark-mode interface built with Tailwind CSS.
-- **Terminal Console:** Integrated shell for manual command execution.
-- **Role-Based Access:** Secure Login & Registration system with 2FA support.
+## ⚡ Key Capabilities
+
+### 1. Fully Automated Arsenal
+Stop manually running scripts. PEAK orchestrates the industry's heaviest hitters with one click:
+- **Nmap Automation:** Full infrastructure scanning, port discovery, and service versioning running in the background.
+- **Burp Suite Integration:** Headless orchestration for automated web crawling and vulnerability scanning.
+- **MobSF Pipeline:** Drag-and-drop static analysis for Android (`.apk`) and iOS (`.ipa`) binaries.
+
+### 2. 🧠 P.E.A.K. Intelligence (AI Agent)
+- **Active Reconnaissance:** Automatically probes targets for sensitive exposures (e.g., `.git`, `.env`, Admin Panels).
+- **Tech Stack Fingerprinting:** Instantly identifies CMS (WordPress, Drupal) and Frameworks (Django, React).
+- **AI Attack Planner:** Utilizes **Phi-3 (via Ollama)** to analyze findings and generate specific, executable attack commands (e.g., `sqlmap -u...`, `wpscan...`).
+- **One-Click Reporting:** Export full intelligence reports to CSV for client delivery.
+
+### 3. 🖥️ The Command Center
+Perform all your work from a single, powerful UI:
+- **Glassmorphism Design:** A reactive, dark-mode interface built for speed and focus.
+- **Terminal Console:** Integrated shell for manual command overrides.
+- **Project Isolation:** Manage multiple client engagements with separate databases and history.
 
 ---
 
 ## 🛠️ Installation & Setup
 
 ### 1. Prerequisites
-You must have [Python](https://www.python.org/) and [Ollama](https://ollama.com/) installed.
+- [Python 3.10+](https://www.python.org/)
+- [Ollama](https://ollama.com/) (for AI features)
 
 ### 2. Install Dependencies
 ```bash
