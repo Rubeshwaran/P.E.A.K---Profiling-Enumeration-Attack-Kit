@@ -14,7 +14,6 @@ We are actively building and integrating new modules daily. Expect frequent upda
 
 ![PEAK Dashboard]<img width="900" height="428" alt="PEAK" src="https://github.com/user-attachments/assets/ec479023-cf6a-4669-9072-5345852385f4" />
 
-(Note: Client data in screenshots has been redacted for confidentiality)
 ---
 
 ## ⚡ Key Capabilities
