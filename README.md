@@ -9,7 +9,6 @@
 
 ![PEAK Dashboard]<img width="900" height="428" alt="PEAK" src="https://github.com/user-attachments/assets/ec479023-cf6a-4669-9072-5345852385f4" />
 )
-<img width="531" height="430" alt="PEAK - Results" src="https://github.com/user-attachments/assets/691a20f9-a209-423e-88a0-153869cdcb8f" />
 
 (Note: Client data in screenshots has been redacted for confidentiality)
 ---
@@ -35,7 +34,15 @@ Perform all your work from a single, powerful UI:
 - **Project Isolation:** Manage multiple client engagements with separate databases and history.
 
 ---
+## 📋 Prerequisites
 
+Before installing P.E.A.K, ensure the following are available on your system:
+
+- **Python 3.10 or higher**
+- **pip** (Python package manager)
+- **Ollama** (Required for AI Attack Planner)
+
+---
 ## 🛠️ Installation & Setup
 
 ### 1. Prerequisites
