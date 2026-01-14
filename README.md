@@ -40,30 +40,8 @@ Perform all your work from a single, powerful UI:
 
 ### 1. Prerequisites
 - [Python 3.10+](https://www.python.org/)
-- [Ollama](https://ollama.com/) (for AI features)
+- [Ollama](https://ollama.com/) (Required for AI Attack Planner)
 
 ### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
-
-###3. Setup AI (Ollama)
-P.E.A.K requires a local LLM to generate attack plans.
-
-Bash
-
-ollama pull phi3
-ollama serve
-
-###4. Configuration
-Rename config.example.py to config.py.
-
-Open config.py and add your API keys (MobSF, Shodan, etc.).
-
-###5. Launch
-Bash
-
-python app.py
-Access the dashboard at: http://localhost:5000
-
-⚠️ Legal Disclaimer
-FOR EDUCATIONAL AND AUTHORIZED TESTING PURPOSES ONLY. Usage of this tool for attacking targets without prior mutual consent is illegal. The developers assume no liability and are not responsible for any misuse or damage caused by this program.
