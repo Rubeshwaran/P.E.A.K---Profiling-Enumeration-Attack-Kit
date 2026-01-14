@@ -7,8 +7,12 @@
 
 **P.E.A.K.** is an AI-powered Offensive Security Orchestration platform that unifies your entire pentesting toolkit into one "Cyberpunk" interface. It replaces disjointed CLI scripts with a fully automated, intelligent pipeline.
 
+### 🚧 Project Status: Under Active Development
+**This project is currently in Beta (v2.0).**
+We are actively building and integrating new modules daily. Expect frequent updates as we add full automation for Nmap, Burp Suite, and advanced reporting capabilities.
+
+
 ![PEAK Dashboard]<img width="900" height="428" alt="PEAK" src="https://github.com/user-attachments/assets/ec479023-cf6a-4669-9072-5345852385f4" />
-)
 
 (Note: Client data in screenshots has been redacted for confidentiality)
 ---
@@ -70,3 +74,12 @@ ollama serve
 python app.py
 ```
 Access the dashboard at: http://localhost:5000
+---
+
+🙏 Acknowledgements & Credits
+Special thanks to OWASP VISTO for the foundational concepts and inspiration behind this project. The architecture of PEAK builds upon the ideas pioneered by the VISTO framework to make security orchestration accessible and visual.
+
+⚠️ Legal Disclaimer
+FOR EDUCATIONAL AND AUTHORIZED TESTING PURPOSES ONLY.
+
+Usage of this tool for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state, and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.
