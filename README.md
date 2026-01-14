@@ -52,3 +52,21 @@ Before installing P.E.A.K, ensure the following are available on your system:
 ### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
+```
+**3. Setup AI (Ollama)**
+P.E.A.K requires a local LLM to generate attack plans. Open a terminal and run:
+```bash
+ollama pull phi3
+ollama serve
+```
+**4. Configuration**
+
+1.Rename config.example.py to config.py.
+2.Open config.py in a text editor.
+3.Add your API keys (MobSF, Shodan, etc.).
+
+**5. Launch**
+```bash
+python app.py
+```
+Access the dashboard at: http://localhost:5000
