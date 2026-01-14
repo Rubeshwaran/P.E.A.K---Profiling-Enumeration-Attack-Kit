@@ -74,12 +74,17 @@ ollama serve
 python app.py
 ```
 Access the dashboard at: http://localhost:5000
+
 ---
 
-🙏 Acknowledgements & Credits
+**🙏 Acknowledgements & Credits**
+
 Special thanks to OWASP VISTO for the foundational concepts and inspiration behind this project. The architecture of PEAK builds upon the ideas pioneered by the VISTO framework to make security orchestration accessible and visual.
 
-⚠️ Legal Disclaimer
+---
+
+**⚠️ Legal Disclaimer**
+
 FOR EDUCATIONAL AND AUTHORIZED TESTING PURPOSES ONLY.
 
 Usage of this tool for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state, and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.
