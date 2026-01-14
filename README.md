@@ -11,7 +11,7 @@
 )
 <img width="531" height="430" alt="PEAK - Results" src="https://github.com/user-attachments/assets/691a20f9-a209-423e-88a0-153869cdcb8f" />
 
-*(Note: Client data in screenshots has been redacted for confidentiality)*
+(Note: Client data in screenshots has been redacted for confidentiality)
 ---
 
 ## ⚡ Key Capabilities
@@ -45,3 +45,25 @@ Perform all your work from a single, powerful UI:
 ### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
+
+###3. Setup AI (Ollama)
+P.E.A.K requires a local LLM to generate attack plans.
+
+Bash
+
+ollama pull phi3
+ollama serve
+
+###4. Configuration
+Rename config.example.py to config.py.
+
+Open config.py and add your API keys (MobSF, Shodan, etc.).
+
+###5. Launch
+Bash
+
+python app.py
+Access the dashboard at: http://localhost:5000
+
+⚠️ Legal Disclaimer
+FOR EDUCATIONAL AND AUTHORIZED TESTING PURPOSES ONLY. Usage of this tool for attacking targets without prior mutual consent is illegal. The developers assume no liability and are not responsible for any misuse or damage caused by this program.
