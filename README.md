@@ -8,11 +8,12 @@
 **P.E.A.K.** is an AI-powered Offensive Security Orchestration platform that unifies your entire pentesting toolkit into one "Cyberpunk" interface. It replaces disjointed CLI scripts with a fully automated, intelligent pipeline.
 
 ### 🚧 Project Status: Under Active Development
-**This project is currently in Beta (v2.0).**
+**This project is currently in Beta (v3.0).**
 We are actively building and integrating new modules daily. Expect frequent updates as we add full automation for Nmap, Burp Suite, and advanced reporting capabilities.
 
+![PEAK Login -v3.0]<img width="900" height="428" alt="image" src="https://github.com/user-attachments/assets/186e9f79-b87f-4e7d-9f2e-13943a7a5396" />
 
-![PEAK Dashboard -v2.0]<img width="900" height="428" alt="PEAK" src="https://github.com/user-attachments/assets/ec479023-cf6a-4669-9072-5345852385f4" />
+![PEAK Dashboard -v3.0]<img width="900" height="428" alt="PEAK" src="https://github.com/user-attachments/assets/ec479023-cf6a-4669-9072-5345852385f4" />
 
 ![PEAK Dashboard -v3.0]<img width="900" height="428" alt="image" src="https://github.com/user-attachments/assets/d30abb61-15ed-4d13-a6c3-20585429e1b4" />
 
