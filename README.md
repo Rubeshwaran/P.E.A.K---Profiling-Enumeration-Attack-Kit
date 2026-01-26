@@ -29,23 +29,35 @@ We are actively building and integrating new modules daily. Expect frequent upda
 
 ## ⚡ Key Capabilities
 
-### 1. Fully Automated Arsenal
-Stop manually running scripts. PEAK orchestrates the industry's heaviest hitters with one click:
-- **Nmap Automation:** Full infrastructure scanning, port discovery, and service versioning running in the background.
-- **Burp Suite Integration:** Headless orchestration for automated web crawling and vulnerability scanning.
-- **MobSF Pipeline:** Drag-and-drop static analysis for Android (`.apk`) and iOS (`.ipa`) binaries.
+**1.🌐 Web Operations**
+   
+A comprehensive suite designed for speed and depth in web application security.
 
-### 2. 🧠 P.E.A.K. Intelligence (AI Agent)
-- **Active Reconnaissance:** Automatically probes targets for sensitive exposures (e.g., `.git`, `.env`, Admin Panels).
-- **Tech Stack Fingerprinting:** Instantly identifies CMS (WordPress, Drupal) and Frameworks (Django, React).
-- **AI Attack Planner:** Utilizes **Phi-3 (via Ollama)** to analyze findings and generate specific, executable attack commands (e.g., `sqlmap -u...`, `wpscan...`).
-- **One-Click Reporting:** Export full intelligence reports to CSV for client delivery.
+- **Active Reconnaissance:** Automated discovery of subdomains, exposed assets, and technology stacks.
+- **Vulnerability Scanning:** Integrated engines for rapid detection of common security flaws.
+- **Archive Mining:** Instant retrieval of historical data and hidden endpoints.
 
-### 3. 🖥️ The Command Center
-Perform all your work from a single, powerful UI:
-- **Glassmorphism Design:** A reactive, dark-mode interface built for speed and focus.
-- **Terminal Console:** Integrated shell for manual command overrides.
-- **Project Isolation:** Manage multiple client engagements with separate databases and history.
+**2. 📱 Android Laboratory (Turbo)**
+   
+A zero-latency Android environment embedded directly into your dashboard.
+
+- **High-Performance Streaming: **Experience 60 FPS real-time video control of emulated devices.
+- **Instant Deployment:** Simply drag & drop any APK onto the screen to install it immediately.
+- **Tool Suite:** One-click execution of advanced testing scripts, bypassing security controls, and runtime analysis.
+- **Static Analysis:** Automatic security scoring and report generation for mobile binaries.
+
+**3. 🍎 iOS Bridge (Physical)**
+   
+NEW in v3.1: Seamless integration with physical iPhone hardware.
+
+- **Hardware Bridge:** Connect your physical iOS device via USB and control it remotely from the dashboard.
+- **Live Stream:** View and interact with your iPhone screen in real-time.
+- **Hybrid Connectivity:** Automatically manages complex tunnel connections to support modern iOS versions.
+
+**4. 🧠 P.E.A.K. Intelligence (AI Agent)**
+   
+- **AI Attack Planner:** An embedded AI assistant that analyzes findings and generates actionable attack strategies.
+- **Context-Aware**: The agent automatically detects your current workspace (Web vs. Mobile) and tailors its advice to your active mission.
 
 ---
 ## 📋 Prerequisites
