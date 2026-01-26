@@ -13,6 +13,8 @@ We are actively building and integrating new modules daily. Expect frequent upda
 
 ![PEAK Login -v3.0]<img width="900" height="428" alt="image" src="https://github.com/user-attachments/assets/186e9f79-b87f-4e7d-9f2e-13943a7a5396" />
 
+![PEAK Register -v3.0]<img width="900" height="428" alt="image" src="https://github.com/user-attachments/assets/fded48d4-d1ff-427a-a7c9-931d1e755c19" />
+
 ![PEAK Dashboard -v3.0]<img width="900" height="428" alt="image" src="https://github.com/user-attachments/assets/271be901-3920-4464-94c8-fd316884817b" />
 
 ![PEAK Dashboard - Web]<img width="900" height="428" alt="image" src="https://github.com/user-attachments/assets/22101fad-7c15-44db-b192-b42d3ae6a940" />
