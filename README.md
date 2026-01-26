@@ -19,6 +19,7 @@ We are actively building and integrating new modules daily. Expect frequent upda
 
 ![PEAK Dashboard -Mobile Lab]<img width="900" height="428" alt="image" src="https://github.com/user-attachments/assets/7aa2ba08-b93b-49b5-b369-e823be86a4cd" />
 
+![PEAK Dashboard -Mobile Emulator]<img width="900" height="428" alt="image" src="https://github.com/user-attachments/assets/8743be77-eef5-4943-a136-1e2c7a39f586" />
 
 ---
 
