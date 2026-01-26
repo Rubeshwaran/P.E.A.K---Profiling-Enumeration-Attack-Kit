@@ -1,28 +1,64 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>PEAK | Operator Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #020617; font-family: 'JetBrains Mono', monospace; }
+        .cyber-grid { background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 40px 40px; }
+        .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 0 40px rgba(168, 85, 247, 0.1); }
+        .input-field { background: rgba(0,0,0,0.4); border: 1px solid #334155; color: #fff; transition: all 0.3s; }
+        .input-field:focus { border-color: #a855f7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.3); outline: none; }
+    </style>
+</head>
+<body class="h-screen flex items-center justify-center cyber-grid text-slate-300 relative overflow-hidden">
+    
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-{% block content %}
-<div class="flex items-center justify-center min-h-[calc(100vh-120px)]">
-    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Register</h2>
-        <form method="POST" action="{{ url_for('register') }}">
-            <div class="mb-4">
-                <label for="username" class="block text-gray-700 text-sm font-semibold mb-2">Username:</label>
-                <input type="text" id="username" name="username" required
-                       class="shadow-sm appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
+    <div class="glass-card w-full max-w-md p-8 rounded-xl relative z-10">
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-slate-800 to-black border border-slate-700 mb-4 shadow-2xl">
+                <i class="fas fa-user-plus text-2xl text-purple-400"></i>
             </div>
-            <div class="mb-6">
-                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password:</label>
-                <input type="password" id="password" name="password" required
-                       class="shadow-sm appearance-none border rounded-md w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
+            <h1 class="text-3xl font-bold text-white tracking-tight">NEW OPERATOR</h1>
+            <p class="text-xs text-slate-500 mt-2 tracking-widest uppercase">Create Access Credentials</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-4 p-3 rounded bg-{{ 'red' if category == 'error' else 'blue' }}-500/10 border border-{{ 'red' if category == 'error' else 'blue' }}-500/20 text-xs text-center text-{{ 'red' if category == 'error' else 'blue' }}-300">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('register') }}" method="POST" class="space-y-5">
+            <div>
+                <label class="block text-xs font-bold text-purple-400 uppercase mb-2">Desired ID</label>
+                <input type="text" name="username" class="input-field w-full p-3 rounded text-sm" placeholder="username" required>
             </div>
-            <button type="submit"
-                    class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 shadow-md">
-                Register
+            
+            <div>
+                <label class="block text-xs font-bold text-purple-400 uppercase mb-2">Set Key</label>
+                <input type="password" name="password" class="input-field w-full p-3 rounded text-sm" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded transition shadow-lg shadow-purple-500/20 mt-4">
+                INITIATE
             </button>
         </form>
-        <p class="text-center text-gray-600 text-sm mt-4">
-            Already have an account? <a href="{{ url_for('login') }}" class="text-blue-600 hover:underline">Login here</a>.
-        </p>
+
+        <div class="mt-6 text-center text-xs text-slate-600">
+            <p>Already have clearance?</p>
+            <a href="{{ url_for('login') }}" class="text-slate-500 hover:text-purple-400 underline mt-2 block">Return to Authentication</a>
+        </div>
     </div>
-</div>
-{% endblock %}
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+</html>

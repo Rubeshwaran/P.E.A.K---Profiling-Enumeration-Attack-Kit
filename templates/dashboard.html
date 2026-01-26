@@ -2,10 +2,12 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <title> PEAK | Command Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEAK | Security Operations Center</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -18,96 +20,190 @@
                     },
                     colors: {
                         peak: {
-                            bg: '#0f172a', // Slate 900
-                            card: 'rgba(30, 41, 59, 0.7)', // Slate 800 with opacity
-                            accent: '#06b6d4', // Cyan 500
-                            mobile: '#8b5cf6', // Violet 500
-                            danger: '#ef4444', // Red 500
-                            success: '#10b981', // Emerald 500
+                            bg: '#020617',
+                            panel: 'rgba(15, 23, 42, 0.75)',
+                            cyan: '#06b6d4',
+                            purple: '#a855f7',
+                            orange: '#f97316',
+                            green: '#22c55e',
+                            blue: '#3b82f6'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
                         }
                     }
                 }
             }
         }
     </script>
+    
     <style>
-        body { background-color: #020617; background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%); background-attachment: fixed; color: #e2e8f0; }
-        .glass-panel { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
-        .loader { border-top-color: #06b6d4; -webkit-animation: spinner 1.5s linear infinite; animation: spinner 1.5s linear infinite; }
-        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body { 
+            background-color: #020617; 
+            background-image: radial-gradient(at 0% 0%, #111827 0, transparent 50%), radial-gradient(at 100% 0%, #1e1b4b 0, transparent 50%); 
+            background-attachment: fixed; 
+            color: #e2e8f0; 
+        }
+        
+        .glass-panel { 
+            background: rgba(15, 23, 42, 0.65); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        /* Navigation Active States */
+        .nav-btn { 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            border-left: 3px solid transparent; 
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.05); }
+        
+        .nav-btn.active-web { 
+            background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%); 
+            border-left-color: #06b6d4; 
+            color: #fff; 
+        }
+        
+        .nav-btn.active-mobile { 
+            background: linear-gradient(90deg, rgba(168,85,247,0.1) 0%, transparent 100%); 
+            border-left-color: #a855f7; 
+            color: #fff; 
+        }
+
+        .nav-btn.active-ios { 
+            background: linear-gradient(90deg, rgba(59,130,246,0.1) 0%, transparent 100%); 
+            border-left-color: #3b82f6; 
+            color: #fff; 
+        }
+        
+        .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .terminal-text { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; line-height: 1.4; }
     </style>
 </head>
-<body class="h-screen flex overflow-hidden text-sm font-sans selection:bg-cyan-500 selection:text-white">
+<body class="h-screen flex overflow-hidden text-sm font-sans selection:bg-purple-500 selection:text-white">
 
-    <aside class="w-64 glass-panel border-r border-white/10 flex flex-col justify-between hidden md:flex z-20">
+    <aside class="w-64 glass-panel border-r border-white/10 flex flex-col justify-between hidden md:flex z-30">
         <div>
-            <div class="p-6 flex items-center gap-3 border-b border-white/5">
-                <div class="h-8 w-8 rounded bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-cyan-500/20">
+            <a href="{{ url_for('home') }}" class="p-6 flex items-center gap-3 border-b border-white/5 bg-black/20 hover:bg-white/5 transition group">
+                <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-slate-800 to-black border border-slate-700 flex items-center justify-center text-white text-lg font-bold shadow-2xl group-hover:scale-105 transition duration-300">
                     <i class="fas fa-mountain"></i>
                 </div>
-                <h1 class="text-xl font-bold tracking-tight text-white">PEAK <span class="text-cyan-400 text-xs font-mono">v2.0</span></h1>
-            </div>
-
-            <div class="p-4">
-                <div class="flex justify-between items-center mb-4 px-2">
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Active Projects</h3>
-                    <button onclick="document.getElementById('createProjectModal').classList.remove('hidden')" class="text-cyan-400 hover:text-cyan-300 transition"><i class="fas fa-plus-circle"></i></button>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-white leading-none">PEAK</h1>
+                    <span class="text-[10px] text-gray-500 font-mono tracking-widest">OPS CENTER v3.1</span>
                 </div>
-                <ul class="space-y-1 max-h-[60vh] overflow-y-auto custom-scrollbar pr-1">
-                    {% for project in projects %}
-                    <li>
-                        <form action="{{ url_for('select_project_route', project_id=project['id']) }}" method="POST">
-                            <button type="submit" class="w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 group {% if project['id'] == current_project_id %} bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 {% else %} hover:bg-white/5 text-gray-400 {% endif %}">
-                                <i class="fas fa-folder {% if project['id'] == current_project_id %} text-cyan-400 {% else %} text-gray-600 group-hover:text-gray-400 {% endif %}"></i>
-                                <span class="truncate font-medium">{{ project['name'] }}</span>
-                            </button>
-                        </form>
-                    </li>
-                    {% endfor %}
-                </ul>
+            </a>
+
+            <div class="p-4 space-y-8 mt-4">
+                
+                <div>
+                    <div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider px-2 mb-2 flex justify-between">
+                        <span>Engagement</span>
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    
+                    {% if current_project_name %}
+                    <div class="bg-white/5 border border-white/10 rounded-lg p-3 group cursor-pointer hover:bg-white/10 transition">
+                        <div class="font-bold text-white truncate text-sm mb-1">{{ current_project_name }}</div>
+                        <div class="text-[10px] text-green-400 flex items-center gap-1 group-hover:text-green-300">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Active Session
+                        </div>
+                    </div>
+                    {% else %}
+                    <button onclick="document.getElementById('createProjectModal').classList.remove('hidden')" class="w-full py-3 border border-dashed border-gray-600 rounded text-gray-500 hover:text-white hover:border-purple-500 text-xs transition flex items-center justify-center gap-2">
+                        <i class="fas fa-plus"></i> Initialize Project
+                    </button>
+                    {% endif %}
+                </div>
+
+                <nav class="space-y-1">
+                    <div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider px-2 mb-2">Modules</div>
+                    
+                    <button onclick="setWorkspace('web')" id="nav-web" class="nav-btn active-web w-full text-left px-4 py-3 rounded-r-lg flex items-center gap-3 text-gray-400 hover:text-white group transition-all">
+                        <div class="w-6 text-center"><i class="fas fa-globe text-lg group-hover:text-cyan-400 transition"></i></div>
+                        <div>
+                            <span class="font-bold block">Web Operations</span>
+                            <span class="text-[10px] opacity-60">Recon, Nuclei, Archive</span>
+                        </div>
+                    </button>
+
+                    <button onclick="setWorkspace('mobile')" id="nav-mobile" class="nav-btn w-full text-left px-4 py-3 rounded-r-lg flex items-center gap-3 text-gray-400 hover:text-white group transition-all">
+                        <div class="w-6 text-center"><i class="fas fa-mobile-alt text-lg group-hover:text-purple-400 transition"></i></div>
+                        <div>
+                            <span class="font-bold block">Android Lab</span>
+                            <span class="text-[10px] opacity-60">MEmu, Frida, Scrcpy</span>
+                        </div>
+                    </button>
+
+                    <button onclick="setWorkspace('ios')" id="nav-ios" class="nav-btn w-full text-left px-4 py-3 rounded-r-lg flex items-center gap-3 text-gray-400 hover:text-white group transition-all">
+                        <div class="w-6 text-center"><i class="fab fa-apple text-xl group-hover:text-blue-400 transition"></i></div>
+                        <div>
+                            <span class="font-bold block">iOS Bridge</span>
+                            <span class="text-[10px] opacity-60">WDA / tidevice</span>
+                        </div>
+                    </button>
+                </nav>
             </div>
         </div>
 
-        <div class="p-4 border-t border-white/5 bg-black/20">
-            <div class="flex items-center gap-3 mb-3">
-                <div class="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-mono border border-gray-600">{{ username[:2].upper() }}</div>
-                <div class="overflow-hidden">
-                    <p class="text-sm font-semibold text-white truncate">{{ username }}</p>
-                    <p class="text-xs text-green-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Online</p>
+        <div class="p-4 bg-black/20 border-t border-white/5">
+            <div class="flex items-center gap-3">
+                <div class="h-9 w-9 rounded-full bg-slate-800 flex items-center justify-center text-sm border border-slate-600 font-mono text-cyan-400 shadow-lg font-bold">
+                    {{ username[:2].upper() }}
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <p class="text-xs font-bold text-white truncate">{{ username }}</p>
+                    <a href="{{ url_for('logout') }}" class="text-[10px] text-red-400 hover:text-red-300 transition block mt-0.5">Terminate Session</a>
                 </div>
             </div>
-            <a href="{{ url_for('logout') }}" class="block w-full text-center py-2 rounded border border-gray-700 hover:bg-red-500/10 hover:border-red-500/50 hover:text-red-400 transition text-xs font-mono">
-                <i class="fas fa-power-off mr-2"></i>DISCONNECT
-            </a>
         </div>
     </aside>
 
     <main class="flex-1 flex flex-col relative overflow-hidden">
         
-        <header class="h-16 glass-panel border-b border-white/10 flex items-center justify-between px-6 z-10">
+        <header class="h-16 glass-panel border-b border-white/10 flex items-center justify-between px-6 z-20">
             <div class="flex items-center gap-4">
-                {% if current_project_name %}
-                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
-                        <i class="fas fa-crosshairs mr-2"></i>{{ current_project_name }}
-                    </span>
-                    <span class="text-gray-500 text-xs font-mono hidden sm:inline">{{ current_session_id }}</span>
-                {% else %}
-                    <span class="text-gray-400 italic">No Target Selected</span>
-                {% endif %}
+                <span id="workspace-title" class="text-lg font-bold text-white tracking-tight">Web Operations</span>
+                <span id="workspace-badge" class="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-900/30 text-cyan-400 border border-cyan-500/20 font-bold tracking-wider">LIVE ENV</span>
             </div>
             
             <div class="flex items-center gap-4">
-                {% if is_2fa_enabled %}
-                    <span class="text-green-400 text-xs" title="2FA Secured"><i class="fas fa-shield-alt"></i></span>
-                {% else %}
-                    <form action="{{ url_for('toggle_2fa') }}" method="POST">
-                        <button class="text-red-400 hover:text-red-300 text-xs transition" title="Enable 2FA"><i class="fas fa-shield-virus"></i> Enable 2FA</button>
-                    </form>
-                {% endif %}
+                <div id="mobile-status-bar" class="hidden flex items-center gap-4 mr-4 border-r border-gray-700 pr-4 animate-fade-in">
+                     <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <span class="text-xs font-mono text-gray-400">Android ADB</span>
+                     </div>
+                </div>
+
+                <div id="ios-status-bar" class="hidden flex items-center gap-4 mr-4 border-r border-gray-700 pr-4 animate-fade-in">
+                     <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                        <span class="text-xs font-mono text-gray-400">iOS WDA</span>
+                     </div>
+                </div>
+
+                <button onclick="clearSession()" class="text-xs text-gray-400 hover:text-white transition flex items-center gap-2 px-3 py-1.5 rounded hover:bg-white/5">
+                    <i class="fas fa-eraser"></i> Clear Logs
+                </button>
+                <button onclick="generateReport()" class="bg-white text-black px-4 py-1.5 rounded font-bold text-xs hover:bg-gray-200 transition shadow-lg shadow-white/10 flex items-center gap-2">
+                    <i class="fas fa-file-pdf"></i> REPORT
+                </button>
             </div>
         </header>
 
@@ -116,7 +212,7 @@
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
-                        <div class="mb-6 p-4 rounded-lg border backdrop-blur-md flex items-center gap-3 animate-fade-in
+                        <div class="mb-6 p-4 rounded-lg border backdrop-blur-md flex items-center gap-3 animate-slide-up 
                             {% if category == 'success' %} bg-green-500/10 border-green-500/30 text-green-300
                             {% elif category == 'danger' %} bg-red-500/10 border-red-500/30 text-red-300
                             {% else %} bg-blue-500/10 border-blue-500/30 text-blue-300 {% endif %}">
@@ -127,122 +223,260 @@
             {% endwith %}
 
             {% if current_project_id %}
-            
-            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+
+            <div id="view-web" class="animate-slide-up space-y-6">
                 
-                <div class="glass-panel rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-4 border-b border-white/5 bg-gradient-to-r from-cyan-900/20 to-transparent">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h2 class="font-bold text-white text-lg flex items-center gap-2">
-                                    <i class="fas fa-brain text-cyan-400"></i> PEAK
-                                </h2>
-                                <p class="text-cyan-300 text-xs font-mono tracking-wide mt-1">Proactive Engine Assessment Kit</p>
-                                <p class="text-gray-500 text-[10px]">Profiling, Enumeration & Attack Kit</p>
+                <div class="glass-panel p-4 rounded-xl border border-cyan-500/20 flex items-center gap-4 bg-gradient-to-r from-cyan-900/10 to-transparent">
+                    <div class="h-10 w-10 rounded-lg bg-cyan-900/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-lg shadow-cyan-500/10">
+                        <i class="fas fa-crosshairs text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                        <label class="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mb-1 block">Primary Scope</label>
+                        <input id="peakUrlInput" type="text" placeholder="https://target-system.com" 
+                            class="w-full bg-transparent border-none text-white font-mono text-lg focus:ring-0 p-0 placeholder-gray-600 focus:outline-none"
+                            oninput="syncWebInputs(this.value)"> 
+                    </div>
+                    <div class="hidden md:flex gap-2">
+                        <span class="px-3 py-1 rounded bg-black/40 border border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2"><i class="fas fa-globe"></i> Public</span>
+                        <span class="px-3 py-1 rounded bg-black/40 border border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2"><i class="fas fa-shield-alt"></i> WAF: Unknown</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-panel rounded-xl p-6 relative group hover:border-cyan-500/30 transition duration-300">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition"><i class="fas fa-map text-6xl text-cyan-500"></i></div>
+                        <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2"><i class="fas fa-network-wired text-cyan-400"></i> Reconnaissance</h3>
+                        <p class="text-xs text-gray-500 mb-6">Asset discovery and surface mapping.</p>
+                        <div class="space-y-3">
+                            <div class="flex gap-2">
+                                <button onclick="runSubdomainRecon()" class="flex-1 py-2 bg-white/5 hover:bg-cyan-500/20 border border-white/10 hover:border-cyan-500/50 rounded text-xs font-bold text-cyan-100 transition">Subdomains</button>
+                                <button onclick="runNmapScan()" class="flex-1 py-2 bg-white/5 hover:bg-indigo-500/20 border border-white/10 hover:border-indigo-500/50 rounded text-xs font-bold text-indigo-100 transition">Nmap Ports</button>
                             </div>
-                            <span class="text-xs text-cyan-500 font-mono border border-cyan-500/30 px-2 py-0.5 rounded">v2.0 ACTIVE</span>
+                            <div id="peakStackList" class="mt-2 flex flex-wrap gap-2 min-h-[30px] p-2 rounded bg-black/20 border border-white/5 items-center">
+                                <span class="text-gray-600 text-[10px] italic w-full text-center">Target technology will appear here...</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="p-6 flex-1">
-                        <div class="relative">
-                            <input id="peakUrlInput" type="text" placeholder="https://target-system.com" 
-                                class="w-full bg-black/30 border border-gray-700 rounded-lg py-3 px-4 pl-10 text-white focus:outline-none focus:border-cyan-500 transition font-mono text-sm">
-                            <i class="fas fa-globe absolute left-3 top-3.5 text-gray-500"></i>
-                            <button onclick="runPeakAnalysis()" class="absolute right-1 top-1 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-md text-xs font-bold transition">
-                                PROBE
+                    <div class="glass-panel rounded-xl p-6 relative group hover:border-orange-500/30 transition duration-300">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition"><i class="fas fa-bomb text-6xl text-orange-500"></i></div>
+                        <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2"><i class="fas fa-biohazard text-orange-400"></i> Vulnerability</h3>
+                        <p class="text-xs text-gray-500 mb-6">Automated scanning and historical data retrieval.</p>
+                        <div class="space-y-3">
+                            <div class="flex gap-2">
+                                <input id="nucleiTarget" type="text" placeholder="Scope URL" class="flex-1 bg-black/30 border border-gray-600 rounded px-3 text-xs text-white outline-none focus:border-orange-500 transition">
+                                <button onclick="runNuclei()" class="bg-orange-600 hover:bg-orange-500 text-white px-4 rounded font-bold text-xs shadow-lg shadow-orange-900/20 transition">IGNITE</button>
+                            </div>
+                            <button onclick="webAction('archive')" class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs text-gray-300 flex items-center justify-between px-4 group-hover:text-white transition">
+                                <span class="flex items-center gap-2"><i class="fas fa-history text-yellow-500"></i> Fetch Wayback URLs</span>
+                                <i class="fas fa-chevron-right text-[10px]"></i>
                             </button>
+                            <div id="nucleiResults" class="hidden mt-2 p-3 bg-black/50 rounded border border-orange-500/20 max-h-32 overflow-y-auto custom-scrollbar terminal-text text-orange-200"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="view-mobile" class="hidden h-full flex flex-col gap-6">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+                    
+                    <div class="xl:col-span-2 space-y-6">
+                        <div class="glass-panel rounded-xl p-6 border border-purple-500/20 bg-gradient-to-br from-purple-900/10 to-transparent">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-bold text-white flex items-center gap-2"><i class="fab fa-android text-purple-400"></i> APK Workbench</h3>
+                                <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30 tracking-wide font-bold">STATIC ANALYSIS</span>
+                            </div>
+
+                            <div class="border-2 border-dashed border-gray-600 hover:border-purple-500 rounded-lg h-28 flex flex-col items-center justify-center text-center transition cursor-pointer relative bg-black/20 group hover:bg-black/30">
+                                <input type="file" id="mobileFileUpload" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="handleMobileFile(this)">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-500 group-hover:text-purple-400 mb-2 transition transform group-hover:scale-110"></i>
+                                <p class="text-xs font-bold text-gray-300 group-hover:text-white" id="mobileFileName">Drop APK / XAPK / IPA</p>
+                            </div>
+
+                            <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
+                                <button onclick="mobileAction('merge')" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-[10px] uppercase font-bold py-3 rounded border border-gray-700 transition flex flex-col items-center justify-center gap-1">
+                                    <i class="fas fa-object-group text-blue-400 text-sm"></i> Merge Splits
+                                </button>
+                                <button onclick="mobileAction('sign')" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-[10px] uppercase font-bold py-3 rounded border border-gray-700 transition flex flex-col items-center justify-center gap-1">
+                                    <i class="fas fa-file-signature text-green-400 text-sm"></i> Uber Signer
+                                </button>
+                                <button onclick="mobileAction('decompile')" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-[10px] uppercase font-bold py-3 rounded border border-gray-700 transition flex flex-col items-center justify-center gap-1">
+                                    <i class="fas fa-code text-yellow-400 text-sm"></i> Decompile
+                                </button>
+                                <button onclick="uploadAndScanMobile()" class="bg-purple-600 hover:bg-purple-500 text-white text-[10px] uppercase font-bold py-3 rounded shadow-lg shadow-purple-900/40 transition flex flex-col items-center justify-center gap-1">
+                                    <i class="fas fa-microscope text-white text-sm"></i> Static Scan
+                                </button>
+                            </div>
                         </div>
 
-                        <div id="peakResults" class="hidden mt-6 space-y-4">
-                            <div class="flex justify-end">
-                                <button onclick="exportPeakReport()" class="text-xs bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded transition flex items-center gap-2">
-                                    <i class="fas fa-file-csv"></i> Export Report
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="glass-panel p-4 rounded-xl border-t-2 border-t-orange-500 hover:bg-white/5 transition cursor-pointer group" onclick="mobileAction('frida_spawn')">
+                                <div class="flex justify-between mb-2"><span class="font-bold text-white text-xs group-hover:text-orange-400">Frida</span><i class="fas fa-syringe text-orange-500"></i></div>
+                                <p class="text-[10px] text-gray-400">Inject Gadget / Scripts</p>
+                            </div>
+                            <div class="glass-panel p-4 rounded-xl border-t-2 border-t-green-500 hover:bg-white/5 transition cursor-pointer group" onclick="mobileAction('objection_explore')">
+                                <div class="flex justify-between mb-2"><span class="font-bold text-white text-xs group-hover:text-green-400">Objection</span><i class="fas fa-terminal text-green-500"></i></div>
+                                <p class="text-[10px] text-gray-400">Runtime Exploration</p>
+                            </div>
+                            <div class="glass-panel p-4 rounded-xl border-t-2 border-t-blue-500 hover:bg-white/5 transition cursor-pointer group" onclick="mobileAction('ssl_unpin')">
+                                <div class="flex justify-between mb-2"><span class="font-bold text-white text-xs group-hover:text-blue-400">SSL Pinning</span><i class="fas fa-unlock text-blue-500"></i></div>
+                                <p class="text-[10px] text-gray-400">Bypass Certificates</p>
+                            </div>
+                            <div class="glass-panel p-4 rounded-xl border-t-2 border-t-pink-500 hover:bg-white/5 transition cursor-pointer group" onclick="mobileAction('deeplinks')">
+                                <div class="flex justify-between mb-2"><span class="font-bold text-white text-xs group-hover:text-pink-400">Deep Links</span><i class="fas fa-link text-pink-500"></i></div>
+                                <p class="text-[10px] text-gray-400">Activity Fuzzing</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        
+                        <div class="glass-panel rounded-xl p-1 bg-black border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.15)] flex flex-col relative h-[500px]">
+                            
+                            <div class="p-3 bg-gray-900 rounded-t-lg flex justify-between items-center border-b border-gray-800 z-10">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">REMOTE VIEW</span>
+                                <div class="flex gap-2">
+                                    <button onclick="launchMemu()" class="bg-gray-800 hover:bg-gray-700 text-[10px] text-white px-3 py-1 rounded border border-gray-600 font-bold flex items-center gap-2 transition shadow-lg">
+                                        <i class="fas fa-play text-green-400 text-[8px]"></i> BOOT EMULATOR
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex-1 bg-gray-900 relative overflow-hidden flex items-center justify-center group" id="device-container">
+                                <img id="deviceStream" src="/api/mobile/video_feed" 
+                                     class="max-w-full max-h-full object-contain cursor-crosshair select-none"
+                                     draggable="false"
+                                     onclick="handleDeviceClick(event)"
+                                     onerror="this.src='https://placehold.co/400x800/0f172a/475569?text=Connecting...'">
+                                
+                                <div class="absolute top-2 left-2 pointer-events-none">
+                                    <div class="flex items-center gap-1.5 bg-black/60 backdrop-blur px-2 py-1 rounded text-[10px] border border-green-500/30 text-green-400 shadow-lg">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div> LIVE
+                                    </div>
+                                </div>
+                                
+                                <div id="offline-msg" class="hidden absolute inset-0 flex-col items-center justify-center bg-black/80 backdrop-blur-sm z-20">
+                                    <i class="fas fa-circle-notch fa-spin text-3xl text-purple-500 mb-2"></i>
+                                    <span class="text-xs text-gray-300">Installing...</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-gray-950 rounded-b-lg flex justify-between items-center border-t border-gray-800">
+                                <button onclick="sendKey('back')" class="text-gray-400 hover:text-white text-lg transition p-2 hover:bg-white/5 rounded"><i class="fas fa-chevron-left"></i></button>
+                                <button onclick="sendKey('home')" class="text-gray-400 hover:text-white text-xl transition p-2 hover:bg-white/5 rounded"><i class="far fa-circle"></i></button>
+                                <button onclick="sendKey('menu')" class="text-gray-400 hover:text-white text-lg transition p-2 hover:bg-white/5 rounded"><i class="fas fa-square"></i></button>
+                                <div class="h-4 w-px bg-gray-700 mx-1"></div>
+                                <button onclick="location.reload()" class="text-gray-500 hover:text-purple-400 text-xs p-2 hover:bg-white/5 rounded" title="Refresh Stream"><i class="fas fa-sync"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel rounded-xl overflow-hidden flex flex-col h-40">
+                            <div class="px-3 py-2 bg-black/60 border-b border-gray-700 flex justify-between items-center">
+                                <span class="text-[10px] font-mono text-purple-400 font-bold">TERMINAL (ADB/LOGCAT)</span>
+                                <button onclick="document.getElementById('mobileConsole').innerHTML=''" class="hover:text-white text-gray-500 text-xs"><i class="fas fa-ban"></i></button>
+                            </div>
+                            <div id="mobileConsole" class="flex-1 bg-black/90 p-3 terminal-text text-gray-300 overflow-y-auto custom-scrollbar leading-relaxed">
+                                <div class="text-gray-500">
+                                    > Mobile Environment Initialized.<br>
+                                    > Waiting for emulator connection...<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="mobileScanResult" class="hidden glass-panel rounded-xl p-6 border-l-4 border-purple-500 bg-black/40 mt-4 animate-slide-up">
+                     <h3 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fas fa-clipboard-check"></i> Analysis Report</h3>
+                     <div id="mobileOutputContent" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <div id="view-ios" class="hidden h-full flex flex-col gap-6 animate-slide-up">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+                    
+                    <div class="glass-panel rounded-xl p-6 border border-blue-500/20 bg-gradient-to-br from-blue-900/10 to-transparent">
+                        <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fab fa-apple text-blue-400"></i> iOS Bridge
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-900/20 rounded-lg border border-blue-500/30">
+                                <p class="text-[10px] text-blue-200 mb-2">
+                                    <strong>Requirement:</strong> Ensure "WebDriverAgent" is installed on your iPhone via AltStore/Xcode and "tidevice" is installed on the host.
+                                </p>
+                                <button onclick="connectIOS()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded text-xs transition shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2">
+                                    <i class="fas fa-link"></i> START BRIDGE
                                 </button>
                             </div>
 
-                            <div class="bg-black/40 rounded border border-gray-700 p-3">
-                                <div class="text-xs text-gray-400 uppercase font-bold mb-2">Technological Fingerprint</div>
-                                <div id="peakStackList" class="flex flex-wrap gap-2"></div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="sendIosHome()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 py-3 rounded border border-gray-700 text-xs font-bold transition flex flex-col items-center justify-center">
+                                    <i class="far fa-circle text-lg mb-1"></i> HOME
+                                </button>
+                                <button class="bg-gray-800 hover:bg-gray-700 text-gray-300 py-3 rounded border border-gray-700 text-xs font-bold opacity-50 cursor-not-allowed flex flex-col items-center justify-center">
+                                    <i class="fas fa-keyboard text-lg mb-1"></i> TYPE
+                                </button>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-2 glass-panel rounded-xl p-1 bg-black border border-blue-500/30 shadow-2xl relative h-[600px] flex justify-center">
+                        <div class="relative h-full aspect-[9/19.5] bg-gray-900 rounded-2xl overflow-hidden border-4 border-gray-800">
                             
-                            <div class="bg-black/40 rounded border border-gray-700 p-3 relative">
-                                <div class="text-xs text-gray-400 uppercase font-bold mb-2 flex justify-between">
-                                    <span>Attack Vector Analysis</span>
-                                    <i class="fas fa-robot text-purple-400"></i>
-                                </div>
-                                <div id="peakAiPlan" class="font-mono text-xs text-gray-300 whitespace-pre-wrap max-h-64 overflow-y-auto custom-scrollbar"></div>
-                            </div>
+                            <img id="iosStream" 
+                                 src="" 
+                                 class="w-full h-full object-contain cursor-pointer"
+                                 onclick="handleIosTouch(event)"
+                                 onerror="this.src='https://placehold.co/1170x2532/000000/1e3a8a?text=Waiting+for+Bridge...'">
+                            
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-6 bg-black rounded-b-xl z-20 pointer-events-none"></div>
                         </div>
                     </div>
                 </div>
-
-                <div class="glass-panel rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-4 border-b border-white/5 bg-gradient-to-r from-purple-900/20 to-transparent flex justify-between items-center">
-                        <h2 class="font-bold text-white flex items-center gap-2">
-                            <i class="fas fa-mobile-alt text-purple-400"></i> Mobile SAST
-                        </h2>
-                        <span class="text-xs text-purple-500 font-mono">MOBSF // READY</span>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-center">
-                        <div class="border-2 border-dashed border-gray-700 rounded-xl p-8 text-center hover:border-purple-500/50 transition bg-black/20 group cursor-pointer relative">
-                            <input type="file" id="mobileFileUpload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="handleFileSelect(this)">
-                            <div class="group-hover:-translate-y-1 transition duration-300">
-                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-600 group-hover:text-purple-400 mb-3"></i>
-                                <p class="text-gray-400 font-medium group-hover:text-white" id="uploadText">Drop APK / IPA here</p>
-                                <p class="text-xs text-gray-600 mt-1">Max size: 100MB</p>
-                            </div>
-                        </div>
-                        <button onclick="uploadAndScanMobile()" class="w-full mt-4 bg-purple-600 hover:bg-purple-500 text-white py-2 rounded-lg font-bold text-sm transition shadow-lg shadow-purple-900/20">
-                            INITIALIZE STATIC ANALYSIS
-                        </button>
-
-                        <div id="mobileScanResult" class="hidden mt-6">
-                            <div id="mobileOutputContent" class="space-y-3"></div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
-            <div class="glass-panel rounded-xl overflow-hidden border-t-2 border-t-cyan-500">
-                <div class="bg-gray-900 px-4 py-2 flex items-center justify-between">
+            <div class="glass-panel rounded-xl overflow-hidden border-t-2 border-t-cyan-500 mt-8 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
+                <div class="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-gray-800">
                     <div class="flex items-center gap-2">
-                        <i class="fas fa-terminal text-green-500 text-xs"></i>
-                        <span class="text-xs font-mono text-gray-400">root@peak-agent:~#</span>
+                        <i class="fas fa-microchip text-cyan-400 animate-pulse"></i>
+                        <span class="text-xs font-mono text-white font-bold tracking-wider">PEAK INTELLIGENT AGENT</span>
                     </div>
-                    <button onclick="clearConsole()" class="text-xs text-gray-500 hover:text-white transition uppercase font-mono">
-                        [ Clear Output ]
-                    </button>
+                    <button onclick="clearConsole()" class="text-[10px] text-gray-500 hover:text-white uppercase">[ Clear History ]</button>
                 </div>
                 
-                <div class="p-0 bg-black/80 font-mono text-sm">
-                    <div id="consoleOutput" class="h-96 overflow-y-auto p-4 custom-scrollbar text-gray-300 space-y-4">
+                <div class="p-0 bg-black/95 font-mono text-sm relative">
+                    <div id="consoleOutput" class="h-32 overflow-y-auto p-4 custom-scrollbar terminal-text text-gray-300 space-y-2">
                         <div class="text-gray-500">
-                            P.E.A.K System Online.<br>
-                            Type 'help' for available commands.
+                            > System Online.<br>
+                            > Ready for Web, Android, or iOS Operations.
                         </div>
                     </div>
                     
-                    <div class="flex items-center border-t border-gray-800">
-                        <span class="pl-4 py-3 text-cyan-500 font-bold">❯</span>
-                        <input type="text" id="commandInput" class="w-full bg-transparent border-none text-white px-3 py-3 focus:ring-0 placeholder-gray-700" placeholder="Enter command (e.g., scan 192.168.1.1)..." onkeydown="if(event.key === 'Enter') sendCommand()">
-                        <button onclick="sendCommand()" class="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-cyan-500 font-bold border-l border-gray-700 transition">
-                            EXEC
-                        </button>
+                    <div class="flex items-center border-t border-gray-800 p-2 bg-slate-900">
+                        <select id="agentSelector" class="bg-gray-800 border border-gray-600 text-white text-xs rounded px-3 py-1.5 mr-3 outline-none focus:border-cyan-500 cursor-pointer">
+                            <option value="bug_bounter">🐛 General Assistant</option>
+                            <option value="android_sast">📱 Mobile Expert</option>
+                            <option value="red_teamer">⚔️ Red Team</option>
+                        </select>
+                        <span class="text-cyan-500 font-bold mr-3">❯</span>
+                        <input type="text" id="commandInput" class="flex-1 bg-transparent border-none text-white focus:ring-0 placeholder-gray-600 text-sm font-mono" placeholder="Ask the agent..." onkeydown="if(event.key === 'Enter') sendCommand()">
+                        <button onclick="sendCommand()" class="ml-3 px-4 py-1.5 bg-cyan-700 hover:bg-cyan-600 text-white text-xs font-bold rounded transition shadow-lg">SEND</button>
                     </div>
                 </div>
             </div>
 
             {% else %}
             <div class="h-[70vh] flex flex-col items-center justify-center text-center">
-                <div class="h-24 w-24 rounded-full bg-white/5 flex items-center justify-center mb-6 animate-pulse">
+                <div class="h-24 w-24 rounded-full bg-white/5 flex items-center justify-center mb-6 animate-pulse border border-white/10 shadow-2xl">
                     <i class="fas fa-folder-open text-4xl text-gray-600"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-white mb-2">No Project Selected</h2>
-                <p class="text-gray-400 max-w-md mx-auto mb-8">Select a project from the sidebar or initialize a new engagement to access the PEAK toolset.</p>
-                <button onclick="document.getElementById('createProjectModal').classList.remove('hidden')" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-bold transition shadow-lg shadow-cyan-500/20">
-                    Create New Project
+                <h2 class="text-2xl font-bold text-white mb-2">No Project Active</h2>
+                <p class="text-gray-400 max-w-md mx-auto mb-8">Select or create a project to load the Security Suite.</p>
+                <button onclick="document.getElementById('createProjectModal').classList.remove('hidden')" class="px-8 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold transition shadow-lg shadow-purple-900/40 transform hover:scale-105">
+                    Initialize Engagement
                 </button>
             </div>
             {% endif %}
@@ -250,222 +484,235 @@
         </div>
     </main>
 
-    <div id="createProjectModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center">
-        <div class="glass-panel w-full max-w-md rounded-xl p-6 border border-white/10 shadow-2xl transform transition-all scale-100">
-            <h3 class="text-xl font-bold text-white mb-4">Initialize New Engagement</h3>
+    <div id="createProjectModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden z-50 flex items-center justify-center">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-8 border border-white/10 shadow-2xl transform transition-all scale-100">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2"><i class="fas fa-plus-circle text-purple-500"></i> New Operation</h3>
             <form action="{{ url_for('create_project_route') }}" method="POST">
-                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Project Name</label>
-                <input type="text" name="project_name" class="w-full bg-black/40 border border-gray-600 rounded-lg p-3 text-white focus:border-cyan-500 focus:outline-none mb-6" placeholder="e.g., Internal PenTest Q1" required>
+                <label class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2 block">Project Identifier</label>
+                <input type="text" name="project_name" class="w-full bg-black/40 border border-gray-600 rounded-lg p-3 text-white mb-6 focus:border-cyan-500 outline-none transition" placeholder="e.g., Target_App_Pentest" required>
                 <div class="flex justify-end gap-3">
-                    <button type="button" onclick="document.getElementById('createProjectModal').classList.add('hidden')" class="px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-white/5 transition">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded font-bold transition">Create</button>
+                    <button type="button" onclick="document.getElementById('createProjectModal').classList.add('hidden')" class="text-gray-400 hover:text-white text-sm px-4 py-2">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold text-sm shadow-lg">Initialize</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        // GLOBAL DATA STORE FOR EXPORT
-        let lastPeakData = null;
-
-        // 1. CLEAR CONSOLE FUNCTION
-        function clearConsole() {
-            const consoleDiv = document.getElementById('consoleOutput');
-            consoleDiv.innerHTML = '<div class="text-gray-500 italic">Console output cleared. System ready.</div>';
-        }
-
-        // 2. MOBILE FILE HANDLER UI
-        function handleFileSelect(input) {
-            const fileName = input.files[0].name;
-            document.getElementById('uploadText').innerHTML = `<span class="text-purple-300">${fileName}</span>`;
-        }
-
-        // 3. P.E.A.K ANALYSIS (UPDATED TO FIX UNDEFINED)
-        async function runPeakAnalysis() {
-            const url = document.getElementById('peakUrlInput').value;
-            const stackList = document.getElementById('peakStackList');
-            const aiPlan = document.getElementById('peakAiPlan');
-            const container = document.getElementById('peakResults');
-
-            if(!url) return alert("Enter URL");
-
-            container.classList.remove('hidden');
-            stackList.innerHTML = '<span class="text-cyan-500 animate-pulse">Scanning Headers & Probing Paths...</span>';
-            aiPlan.innerHTML = '<span class="text-purple-500 animate-pulse">Neural Network is thinking... (This may take 1-3 mins)</span>';
-
-            try {
-                const res = await fetch('/api/peak/analyze', {
-                    method:'POST', 
-                    headers:{'Content-Type':'application/json'}, 
-                    body:JSON.stringify({url})
-                });
-                const data = await res.json();
+        // --- WORKSPACE SWITCHER ---
+        function setWorkspace(mode) {
+            // Hide All Views
+            ['web', 'mobile', 'ios'].forEach(m => {
+                const el = document.getElementById('view-' + m);
+                if(el) el.classList.add('hidden');
                 
-                if(data.status === 'success') {
-                    // STORE DATA FOR EXPORT
-                    lastPeakData = data; 
-                    
-                    // Render Tech Stack
-                    let stackHtml = "";
-                    if (data.tech_stack && data.tech_stack.length > 0) {
-                        stackHtml = data.tech_stack.map(t => 
-                            `<span class="bg-cyan-900/40 text-cyan-300 border border-cyan-500/30 px-2 py-1 rounded text-[10px] font-mono">${t}</span>`
-                        ).join('');
-                    } else {
-                        stackHtml = '<span class="text-gray-500 text-xs">No specific tech detected.</span>';
-                    }
+                const btn = document.getElementById('nav-' + m);
+                if(btn) btn.classList.remove('active-web', 'active-mobile', 'active-ios');
+            });
 
-                    // Render Exposed Paths
-                    if(data.exposed_paths && data.exposed_paths.length > 0) {
-                         stackHtml += `<div class="w-full mt-2 pt-2 border-t border-gray-700"></div>`;
-                         data.exposed_paths.forEach(path => {
-                             stackHtml += `<div class="flex items-center gap-2 text-red-400 font-bold text-xs mt-1 animate-pulse border border-red-500/30 bg-red-900/20 p-1 rounded"><i class="fas fa-exclamation-triangle"></i> EXPOSED: ${path}</div>`;
-                         });
-                    } else {
-                        stackHtml += `<div class="w-full mt-2 pt-2 border-t border-gray-700 text-[10px] text-green-400"><i class="fas fa-check-circle"></i> No sensitive paths exposed.</div>`;
-                    }
-                    
-                    stackList.innerHTML = stackHtml;
-                    
-                    // Render Plan (Fix for Undefined)
-                    // We check for 'ai_plan_html' (New backend) OR 'ai_plan' (Old backend)
-                    const planContent = data.ai_plan_html || data.ai_plan || "No AI plan generated.";
-                    aiPlan.innerHTML = planContent;
-                    
-                } else {
-                    aiPlan.innerHTML = `<span class="text-red-400">Error: ${data.message}</span>`;
-                    stackList.innerHTML = `<span class="text-red-400">Failed</span>`;
-                }
-            } catch(e) {
-                console.error(e);
-                aiPlan.innerHTML = `<span class="text-red-400">Connection Error: ${e.message}</span>`;
+            // Status Bar Toggles
+            document.getElementById('mobile-status-bar').classList.add('hidden');
+            document.getElementById('ios-status-bar').classList.add('hidden');
+
+            // Show Selected View
+            document.getElementById('view-' + mode).classList.remove('hidden');
+            document.getElementById('nav-' + mode).classList.add('active-' + mode);
+            
+            // Update Headers
+            const title = document.getElementById('workspace-title');
+            const badge = document.getElementById('workspace-badge');
+            
+            if(mode === 'web') {
+                title.innerText = "Web Operations";
+                badge.innerText = "LIVE TARGET";
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-900/30 text-cyan-400 border border-cyan-500/20 font-bold tracking-wider";
+            } else if(mode === 'mobile') {
+                title.innerText = "Android Laboratory";
+                badge.innerText = "ANDROID / ADB";
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-mono bg-purple-900/30 text-purple-400 border border-purple-500/20 font-bold tracking-wider";
+                document.getElementById('mobile-status-bar').classList.remove('hidden');
+            } else if(mode === 'ios') {
+                title.innerText = "iOS Laboratory";
+                badge.innerText = "PHYSICAL / WDA";
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-mono bg-blue-900/30 text-blue-400 border border-blue-500/20 font-bold tracking-wider";
+                document.getElementById('ios-status-bar').classList.remove('hidden');
             }
         }
 
-        // 4. EXPORT FUNCTION
-        async function exportPeakReport() {
-            if (!lastPeakData) {
-                alert("No scan data to export. Run a scan first.");
-                return;
-            }
+        // --- WEB OPS ---
+        function syncWebInputs(val) { document.getElementById('nucleiTarget').value = val; }
+        async function webAction(action) { alert("Fetching Wayback URLs..."); }
 
-            try {
-                const res = await fetch('/api/peak/export', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(lastPeakData)
-                });
-
-                if (res.ok) {
-                    const blob = await res.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `PEAK_Report_${Date.now()}.csv`;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                } else {
-                    alert("Failed to generate CSV.");
-                }
-            } catch (e) {
-                alert("Export error: " + e);
-            }
+        // --- MOBILE OPS ---
+        function handleMobileFile(input) {
+            const name = input.files[0].name;
+            document.getElementById('mobileFileName').innerHTML = `<span class="text-purple-300 font-mono">${name}</span>`;
+            logMobile(`File Loaded: ${name}`);
         }
 
-        // 5. MOBILE SCAN
-        async function uploadAndScanMobile() {
-            const input = document.getElementById('mobileFileUpload');
-            const output = document.getElementById('mobileScanResult');
-            const content = document.getElementById('mobileOutputContent');
-            
-            if(!input.files[0]) return alert("Select File");
+        function handleDeviceClick(event) {
+            const img = event.target;
+            const rect = img.getBoundingClientRect();
+            const xRatio = (event.clientX - rect.left) / rect.width;
+            const yRatio = (event.clientY - rect.top) / rect.height;
+            fetch('/api/mobile/touch', {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ x: xRatio, y: yRatio })
+            });
+        }
 
-            output.classList.remove('hidden');
-            content.innerHTML = '<div class="text-purple-400 animate-pulse text-center p-4">Uploading & Decompiling... This may take 2 mins.</div>';
-            
-            const formData = new FormData();
-            formData.append('file', input.files[0]);
+        async function sendKey(actionName) {
+            fetch('/api/mobile/key', {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ action: actionName })
+            });
+        }
 
+        async function launchMemu() {
+            const consoleDiv = document.getElementById('mobileConsole');
+            const offlineMsg = document.getElementById('offline-msg');
+            offlineMsg.style.display = 'flex';
+            consoleDiv.innerHTML += `<div class="mb-1 text-gray-400">> Attempting to launch MEmu...</div>`;
             try {
-                const res = await fetch('/api/scan/mobile', { method:'POST', body:formData });
+                const res = await fetch('/api/mobile/launch_emulator', {method: 'POST'});
                 const data = await res.json();
-
-                if(data.error) {
-                    content.innerHTML = `<div class="text-red-400 p-4 border border-red-500/50 bg-red-900/20 rounded">Error: ${data.error}</div>`;
+                if(data.status === 'success') {
+                    consoleDiv.innerHTML += `<div class="mb-1 text-green-400">> ${data.message}</div>`;
+                    setTimeout(() => { 
+                        document.getElementById('deviceStream').src = "/api/mobile/video_feed?t=" + new Date().getTime(); 
+                        offlineMsg.style.display = 'none';
+                    }, 8000);
                 } else {
-                    let html = `
-                        <div class="flex items-center justify-between bg-black/40 p-3 rounded border border-gray-700">
-                            <div class="text-gray-400 text-xs uppercase font-bold">Security Score</div>
-                            <div class="text-2xl font-bold ${data.security_score < 50 ? 'text-red-500' : 'text-green-400'}">${data.security_score}/100</div>
-                        </div>
-                        <div class="max-h-64 overflow-y-auto custom-scrollbar space-y-2 pr-2">
-                    `;
-                    
-                    if(data.high_issues && data.high_issues.length > 0) {
-                        data.high_issues.forEach(i => {
-                            html += `
-                                <div class="bg-red-500/10 border border-red-500/20 p-3 rounded hover:bg-red-500/20 transition">
-                                    <div class="text-red-400 font-bold text-xs mb-1"><i class="fas fa-bug mr-1"></i> ${i.title}</div>
-                                    <div class="text-gray-400 text-[10px] leading-tight">${i.description}</div>
-                                </div>
-                            `;
-                        });
-                    } else {
-                        html += `<div class="text-green-400 text-center text-xs p-4">No Critical Vulnerabilities Found.</div>`;
-                    }
-                    html += `</div>`;
-                    content.innerHTML = html;
+                    consoleDiv.innerHTML += `<div class="mb-1 text-red-400">> Error: ${data.message}</div>`;
                 }
-            } catch(e) {
-                content.innerHTML = `<div class="text-red-400">Network Error</div>`;
-            }
+            } catch(e) { consoleDiv.innerHTML += `<div class="mb-1 text-red-400">> Connection Error</div>`; }
         }
 
-        // 6. TERMINAL COMMAND
+        // --- iOS OPS ---
+        async function connectIOS() {
+            const consoleDiv = document.getElementById('consoleOutput');
+            consoleDiv.innerHTML += `<div class="text-blue-300">> Connecting to tidevice bridge...</div>`;
+            try {
+                const res = await fetch('/api/ios/connect', {method: 'POST'});
+                const data = await res.json();
+                if(data.status === 'success') {
+                    setTimeout(() => {
+                        document.getElementById('iosStream').src = "/api/ios/video_feed?t=" + new Date().getTime();
+                        consoleDiv.innerHTML += `<div class="text-green-400">> iOS Bridge Connected.</div>`;
+                    }, 3000);
+                } else {
+                    alert(data.message);
+                }
+            } catch(e) { alert("Server Error: Is tidevice installed?"); }
+        }
+
+        function handleIosTouch(e) {
+            const rect = e.target.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            fetch('/api/ios/touch', {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({x, y})
+            });
+        }
+
+        async function sendIosHome() { fetch('/api/ios/home', {method: 'POST'}); }
+
+        // --- SHARED UTILS ---
+        function mobileAction(action) {
+            logMobile(`Command: ${action.toUpperCase()} initialized...`);
+        }
+
+        function logMobile(msg) {
+            const term = document.getElementById('mobileConsole');
+            term.innerHTML += `<div class="mb-1"><span class="text-gray-500">[LOG]</span> <span class="text-gray-300">${msg}</span></div>`;
+            term.scrollTop = term.scrollHeight;
+        }
+
+        function clearConsole() { document.getElementById('consoleOutput').innerHTML = '<div class="text-gray-500">History cleared.</div>'; }
+        
         async function sendCommand() {
             const input = document.getElementById('commandInput');
-            const consoleDiv = document.getElementById('consoleOutput');
             const cmd = input.value;
             if(!cmd) return;
-
-            // Add user command to UI
-            consoleDiv.innerHTML += `
-                <div class="mt-4">
-                    <span class="text-green-500 font-bold">root@peak:~#</span> <span class="text-white">${cmd}</span>
-                </div>
-                <div class="text-cyan-500 animate-pulse ml-4" id="loading-${Date.now()}">... Processing ...</div>
-            `;
-            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            const consoleDiv = document.getElementById('consoleOutput');
+            consoleDiv.innerHTML += `<div class="mt-2"><span class="text-cyan-400 font-bold">User:</span> ${cmd}</div>`;
             input.value = '';
-
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
             try {
                 const res = await fetch('/agent_command', {
-                    method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({command:cmd})
+                    method:'POST', headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify({command: cmd, agent: document.getElementById('agentSelector').value})
                 });
                 const data = await res.json();
-                
-                // Remove loading indicator
-                consoleDiv.lastElementChild.remove();
-
-                // Append Response
-                let outputHtml = `<div class="ml-4 text-gray-300 font-mono text-xs whitespace-pre-wrap border-l-2 border-gray-700 pl-3 py-2 my-2">${data.response_for_ui || data.message}</div>`;
-                
-                if(data.llm_analysis && data.llm_analysis !== 'N/A' && data.llm_analysis !== 'LLM analysis skipped.') {
-                     outputHtml += `<div class="ml-4 mt-2 p-3 bg-cyan-900/10 border border-cyan-500/30 rounded text-xs text-cyan-100">
-                        <div class="font-bold text-cyan-400 mb-1"><i class="fas fa-brain"></i> AI Analysis:</div>
-                        ${data.llm_analysis}
-                     </div>`;
-                }
-
-                consoleDiv.innerHTML += outputHtml;
+                consoleDiv.innerHTML += `<div class="mt-1 pl-4 border-l-2 border-cyan-500/20 text-gray-300 text-xs">${data.response_for_ui}</div>`;
                 consoleDiv.scrollTop = consoleDiv.scrollHeight;
-
-            } catch(e) {
-                consoleDiv.lastElementChild.remove();
-                consoleDiv.innerHTML += `<div class="text-red-500 ml-4">Error executing command.</div>`;
-            }
+            } catch(e) { consoleDiv.innerHTML += `<div class="text-red-500">Agent Offline</div>`; }
         }
+
+        async function generateReport() { alert("Generating PDF Report..."); }
+        async function clearSession() { if(confirm("Clear logs?")) window.location.reload(); }
+        
+        async function uploadAndScanMobile() { 
+             const input = document.getElementById('mobileFileUpload');
+             if(!input.files[0]) return alert("No file");
+             document.getElementById('mobileScanResult').classList.remove('hidden');
+             document.getElementById('mobileOutputContent').innerHTML = '<div class="text-purple-400 animate-pulse">Running Static Analysis (MobSF)...</div>';
+             const formData = new FormData();
+             formData.append('file', input.files[0]);
+             try {
+                const res = await fetch('/api/scan/mobile', {method:'POST', body:formData});
+                const data = await res.json();
+                document.getElementById('mobileOutputContent').innerHTML = `<div class="font-bold text-white text-lg">Security Score: ${data.security_score}/100</div>`;
+                logMobile("Analysis Complete. Score: " + data.security_score);
+             } catch(e) { logMobile("Upload Failed."); }
+        }
+
+        // --- DRAG & DROP INSTALL LOGIC ---
+        const dropZone = document.getElementById('device-container');
+        const offlineMsg = document.getElementById('offline-msg');
+
+        if (dropZone) {
+            dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-green-500', 'border-4'); });
+            dropZone.addEventListener('dragleave', (e) => { e.preventDefault(); dropZone.classList.remove('border-green-500', 'border-4'); });
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('border-green-500', 'border-4');
+                if (e.dataTransfer.files.length > 0) handleDroppedApp(e.dataTransfer.files[0]);
+            });
+        }
+
+        async function handleDroppedApp(file) {
+            if (!file.name.toLowerCase().endsWith('.apk') && !file.name.toLowerCase().endsWith('.xapk')) {
+                return alert("Only .apk or .xapk files allowed.");
+            }
+            logMobile(`Installing: ${file.name}...`);
+            offlineMsg.style.display = 'flex';
+            offlineMsg.innerHTML = `<i class="fas fa-cog fa-spin text-3xl text-purple-500 mb-2"></i><span class="text-xs text-gray-300">Installing ${file.name}...</span>`;
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            try {
+                const res = await fetch('/api/mobile/install', {method: 'POST', body: formData});
+                const data = await res.json();
+                if (data.status === 'success') {
+                    logMobile("Success: Installed!");
+                    offlineMsg.innerHTML = `<i class="fas fa-check text-green-500 text-3xl mb-2"></i><span class="text-white">Installed!</span>`;
+                } else {
+                    logMobile("Error: " + data.message);
+                    offlineMsg.innerHTML = `<i class="fas fa-times text-red-500 text-3xl mb-2"></i><span class="text-white">Failed</span>`;
+                }
+            } catch(e) { logMobile("Network Error"); }
+            setTimeout(() => { offlineMsg.style.display = 'none'; }, 2000);
+        }
+
+        // --- INITIALIZATION ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const viewParam = urlParams.get('view');
+        
+        if(viewParam === 'mobile') setWorkspace('mobile');
+        else if(viewParam === 'ios') setWorkspace('ios');
+        else setWorkspace('web');
     </script>
 </body>
 </html>
