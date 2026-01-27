@@ -1,3 +1,5 @@
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 # P.E.A.K.
 **Proactive Engine for Assessment & Knowledge**
 
@@ -110,3 +112,7 @@ Special thanks to OWASP VISTO for the foundational concepts and inspiration behi
 FOR EDUCATIONAL AND AUTHORIZED TESTING PURPOSES ONLY.
 
 Usage of this tool for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state, and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
