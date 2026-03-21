@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEAK — Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #0b0e14; color: #e2e8f0; min-height: 100vh; }
+        .topbar { background: #111827; border-bottom: 1px solid #1e293b; padding: 12px 24px; display: flex; align-items: center; gap: 16px; }
+        .topbar h1 { font-size: 1.1em; font-weight: 700; }
+        .topbar h1 span.p { color: #06b6d4; } .topbar h1 span.e { color: #8b5cf6; }
+        .topbar h1 span.a { color: #f59e0b; } .topbar h1 span.k { color: #ef4444; }
+        .topbar .nav { display: flex; gap: 8px; margin-left: auto; }
+        .topbar .nav a { color: #94a3b8; text-decoration: none; font-size: 0.82em; padding: 6px 14px; border-radius: 8px; border: 1px solid #334155; transition: all 0.2s; }
+        .topbar .nav a:hover, .topbar .nav a.active { background: #1e293b; color: #06b6d4; border-color: #06b6d4; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .page-header h2 { font-size: 1.4em; font-weight: 700; }
+        .btn { padding: 10px 18px; border: none; border-radius: 8px; font-size: 0.85em; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-primary { background: linear-gradient(135deg, #06b6d4, #8b5cf6); color: #fff; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-sm { padding: 5px 12px; font-size: 0.78em; border-radius: 6px; }
+        .btn-green { background: #065f46; color: #6ee7b7; border: 1px solid #059669; }
+        .btn-red { background: #7f1d1d; color: #fca5a5; border: 1px solid #dc2626; }
+        .btn-yellow { background: #78350f; color: #fbbf24; border: 1px solid #d97706; }
+        .btn-outline { background: transparent; border: 1px solid #334155; color: #94a3b8; }
+        .btn-outline:hover { border-color: #06b6d4; color: #06b6d4; }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 0; }
+        .tabs button { background: none; border: none; color: #64748b; padding: 10px 20px; font-size: 0.9em; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .tabs button.active { color: #06b6d4; border-bottom-color: #06b6d4; }
+        .tabs button:hover { color: #e2e8f0; }
+        .tab-content { display: none; } .tab-content.active { display: block; }
+
+        /* Table */
+        .table-card { background: #111827; border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+        th { background: #0f172a; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75em; padding: 12px 16px; text-align: left; }
+        td { padding: 12px 16px; border-top: 1px solid #1e293b; }
+        tr:hover td { background: #1e293b22; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.78em; font-weight: 600; }
+        .badge-admin { background: #7c3aed22; color: #a78bfa; border: 1px solid #7c3aed44; }
+        .badge-user { background: #06b6d422; color: #67e8f9; border: 1px solid #06b6d444; }
+        .badge-active { background: #05966922; color: #6ee7b7; border: 1px solid #05966944; }
+        .badge-disabled { background: #dc262622; color: #fca5a5; border: 1px solid #dc262644; }
+        .actions { display: flex; gap: 6px; }
+
+        /* Modal */
+        .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-bg.show { display: flex; }
+        .modal { background: #111827; border: 1px solid #1e293b; border-radius: 16px; padding: 28px; width: 100%; max-width: 480px; box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
+        .modal h3 { font-size: 1.1em; margin-bottom: 18px; }
+        .modal .form-group { margin-bottom: 14px; }
+        .modal .form-group label { display: block; font-size: 0.8em; font-weight: 600; color: #94a3b8; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .modal .form-group input, .modal .form-group select { width: 100%; padding: 10px 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 0.9em; outline: none; }
+        .modal .form-group input:focus, .modal .form-group select:focus { border-color: #06b6d4; }
+        .modal .form-row { display: flex; gap: 12px; }
+        .modal .form-row .form-group { flex: 1; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .modal-actions .btn { flex: 1; justify-content: center; }
+
+        /* Stats cards */
+        .stats { display: flex; gap: 16px; margin-bottom: 24px; }
+        .stat-card { flex: 1; background: #111827; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; }
+        .stat-card .value { font-size: 2em; font-weight: 800; }
+        .stat-card .label { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+        .stat-card.tp .value { color: #06b6d4; }
+        .stat-card.users .value { color: #8b5cf6; }
+        .stat-card.active .value { color: #10b981; }
+        .stat-card.admins .value { color: #f59e0b; }
+
+        /* Audit log */
+        .audit-entry { padding: 10px 16px; border-bottom: 1px solid #1e293b; font-size: 0.82em; display: flex; gap: 12px; }
+        .audit-entry:hover { background: #1e293b22; }
+        .audit-time { color: #475569; white-space: nowrap; font-family: monospace; font-size: 0.85em; min-width: 140px; }
+        .audit-user { color: #06b6d4; font-weight: 600; min-width: 100px; }
+        .audit-action { font-weight: 600; min-width: 110px; }
+        .audit-action.login { color: #10b981; } .audit-action.logout { color: #64748b; }
+        .audit-action.login_failed { color: #ef4444; } .audit-action.user_created { color: #8b5cf6; }
+        .audit-action.user_updated { color: #f59e0b; } .audit-action.user_deleted { color: #ef4444; }
+        .audit-action.burp_import { color: #f97316; } .audit-action.scan_started { color: #06b6d4; }
+        .audit-detail { color: #94a3b8; flex: 1; }
+        .audit-ip { color: #475569; font-family: monospace; font-size: 0.9em; }
+        .empty { text-align: center; padding: 40px; color: #475569; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <h1><span class="p">P</span><span class="e">E</span><span class="a">A</span><span class="k">K</span></h1>
+        <span style="color:#475569; font-size:0.85em;">Admin Panel</span>
+        <div class="nav">
+            <a href="/dashboard" onclick="if(window.opener){window.close();return false;}" title="Return to Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="/admin/users" class="active"><i class="fas fa-users-cog"></i> Users</a>
+            <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats" id="stats">
+            <div class="stat-card users"><div class="value" id="stat-total">-</div><div class="label">Total Users</div></div>
+            <div class="stat-card active"><div class="value" id="stat-active">-</div><div class="label">Active Users</div></div>
+            <div class="stat-card admins"><div class="value" id="stat-admins">-</div><div class="label">Admins</div></div>
+            <div class="stat-card tp"><div class="value" id="stat-projects">-</div><div class="label">Total Projects</div></div>
+        </div>
+
+        <div class="tabs">
+            <button class="active" onclick="switchTab('users')"><i class="fas fa-users" style="margin-right:6px;"></i>Users</button>
+            <button onclick="switchTab('audit')"><i class="fas fa-clipboard-list" style="margin-right:6px;"></i>Audit Log</button>
+        </div>
+
+        <!-- Users Tab -->
+        <div class="tab-content active" id="tab-users">
+            <div class="page-header">
+                <h2>User Management</h2>
+                <button class="btn btn-primary" onclick="showCreateModal()"><i class="fas fa-user-plus"></i> New User</button>
+            </div>
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Username</th><th>Email</th><th>Role</th>
+                            <th>Status</th><th>Projects</th><th>Last Login</th><th>Created</th><th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody">
+                        <tr><td colspan="9" class="empty">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Audit Log Tab -->
+        <div class="tab-content" id="tab-audit">
+            <div class="page-header">
+                <h2>Audit Log</h2>
+                <button class="btn btn-outline" onclick="loadAudit()"><i class="fas fa-sync-alt"></i> Refresh</button>
+            </div>
+            <div class="table-card" id="audit-container">
+                <div class="empty">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create/Edit User Modal -->
+    <div class="modal-bg" id="modal">
+        <div class="modal">
+            <h3 id="modal-title"><i class="fas fa-user-plus" style="color:#8b5cf6; margin-right:8px;"></i>Create User</h3>
+            <input type="hidden" id="modal-uid" value="">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="modal-username" placeholder="e.g. john.doe">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="modal-email" placeholder="john@company.com">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Password <span id="pw-hint" style="font-weight:400; text-transform:none; color:#475569;">(min 8 chars)</span></label>
+                <input type="password" id="modal-password" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <select id="modal-role">
+                    <option value="user">User — Standard pentest access</option>
+                    <option value="admin">Admin — Full management access</option>
+                </select>
+            </div>
+            <div id="modal-error" style="display:none; background:#7f1d1d33; border:1px solid #dc262633; color:#fca5a5; padding:8px 12px; border-radius:8px; font-size:0.85em; margin-top:10px;"></div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" id="modal-submit" onclick="submitModal()"><i class="fas fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Tab switching
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        event.target.closest('button').classList.add('active');
+        if (tab === 'audit') loadAudit();
+    }
+
+    // Load users
+    async function loadUsers() {
+        try {
+            var r = await (await fetch('/api/admin/users')).json();
+            if (r.status !== 'success') return;
+            var users = r.users;
+
+            // Stats
+            document.getElementById('stat-total').textContent = users.length;
+            document.getElementById('stat-active').textContent = users.filter(u => u.is_active).length;
+            document.getElementById('stat-admins').textContent = users.filter(u => u.role === 'admin').length;
+            document.getElementById('stat-projects').textContent = users.reduce((s,u) => s + (u.project_count||0), 0);
+
+            var tbody = document.getElementById('users-tbody');
+            if (!users.length) { tbody.innerHTML = '<tr><td colspan="9" class="empty">No users found</td></tr>'; return; }
+
+            tbody.innerHTML = users.map(function(u) {
+                var roleBadge = u.role === 'admin'
+                    ? '<span class="badge badge-admin"><i class="fas fa-crown" style="margin-right:4px;font-size:0.8em;"></i>Admin</span>'
+                    : '<span class="badge badge-user"><i class="fas fa-user" style="margin-right:4px;font-size:0.8em;"></i>User</span>';
+                var statusBadge = u.is_active
+                    ? '<span class="badge badge-active">Active</span>'
+                    : '<span class="badge badge-disabled">Disabled</span>';
+                var lastLogin = u.last_login ? new Date(u.last_login).toLocaleString() : '<span style="color:#475569">Never</span>';
+                var created = u.created_at ? new Date(u.created_at).toLocaleDateString() : '-';
+                var actions = '<div class="actions">'
+                    + '<button class="btn btn-sm btn-outline" onclick="editUser('+u.id+')"><i class="fas fa-edit"></i></button>';
+                if (u.is_active)
+                    actions += '<button class="btn btn-sm btn-red" onclick="toggleUser('+u.id+',false)" title="Disable"><i class="fas fa-ban"></i></button>';
+                else
+                    actions += '<button class="btn btn-sm btn-green" onclick="toggleUser('+u.id+',true)" title="Enable"><i class="fas fa-check"></i></button>';
+                actions += '</div>';
+
+                return '<tr>'
+                    + '<td style="color:#475569; font-family:monospace;">' + u.id + '</td>'
+                    + '<td style="font-weight:600;">' + esc(u.username) + '</td>'
+                    + '<td style="color:#94a3b8;">' + esc(u.email || '-') + '</td>'
+                    + '<td>' + roleBadge + '</td>'
+                    + '<td>' + statusBadge + '</td>'
+                    + '<td style="text-align:center;">' + (u.project_count||0) + '</td>'
+                    + '<td style="font-size:0.82em; color:#94a3b8;">' + lastLogin + '</td>'
+                    + '<td style="font-size:0.82em; color:#94a3b8;">' + created + '</td>'
+                    + '<td>' + actions + '</td>'
+                    + '</tr>';
+            }).join('');
+        } catch(e) { console.error('loadUsers error:', e); }
+    }
+
+    // Load audit log
+    async function loadAudit() {
+        try {
+            var r = await (await fetch('/api/admin/audit?limit=200')).json();
+            var container = document.getElementById('audit-container');
+            if (!r.entries || !r.entries.length) { container.innerHTML = '<div class="empty">No audit entries yet</div>'; return; }
+
+            container.innerHTML = r.entries.map(function(e) {
+                var t = e.created_at ? new Date(e.created_at).toLocaleString() : '';
+                return '<div class="audit-entry">'
+                    + '<span class="audit-time">' + t + '</span>'
+                    + '<span class="audit-user">' + esc(e.username || '-') + '</span>'
+                    + '<span class="audit-action ' + (e.action||'') + '">' + esc(e.action||'') + '</span>'
+                    + '<span class="audit-detail">' + esc(e.detail||'') + '</span>'
+                    + '<span class="audit-ip">' + esc(e.ip_address||'') + '</span>'
+                    + '</div>';
+            }).join('');
+        } catch(e) { console.error('loadAudit error:', e); }
+    }
+
+    // Modal
+    var _users = [];
+    function showCreateModal() {
+        document.getElementById('modal-title').innerHTML = '<i class="fas fa-user-plus" style="color:#8b5cf6; margin-right:8px;"></i>Create User';
+        document.getElementById('modal-uid').value = '';
+        document.getElementById('modal-username').value = '';
+        document.getElementById('modal-email').value = '';
+        document.getElementById('modal-password').value = '';
+        document.getElementById('modal-role').value = 'user';
+        document.getElementById('modal-username').disabled = false;
+        document.getElementById('pw-hint').textContent = '(min 8 chars)';
+        document.getElementById('modal-error').style.display = 'none';
+        document.getElementById('modal').classList.add('show');
+    }
+    function editUser(uid) {
+        fetch('/api/admin/users').then(r=>r.json()).then(function(r) {
+            var u = r.users.find(x => x.id === uid);
+            if (!u) return;
+            document.getElementById('modal-title').innerHTML = '<i class="fas fa-user-edit" style="color:#f59e0b; margin-right:8px;"></i>Edit User: ' + esc(u.username);
+            document.getElementById('modal-uid').value = uid;
+            document.getElementById('modal-username').value = u.username;
+            document.getElementById('modal-username').disabled = true;
+            document.getElementById('modal-email').value = u.email || '';
+            document.getElementById('modal-password').value = '';
+            document.getElementById('modal-role').value = u.role;
+            document.getElementById('pw-hint').textContent = '(leave blank to keep current)';
+            document.getElementById('modal-error').style.display = 'none';
+            document.getElementById('modal').classList.add('show');
+        });
+    }
+    function closeModal() { document.getElementById('modal').classList.remove('show'); }
+
+    async function submitModal() {
+        var uid      = document.getElementById('modal-uid').value;
+        var username = document.getElementById('modal-username').value.trim();
+        var email    = document.getElementById('modal-email').value.trim();
+        var password = document.getElementById('modal-password').value;
+        var role     = document.getElementById('modal-role').value;
+        var errEl    = document.getElementById('modal-error');
+        errEl.style.display = 'none';
+
+        if (!uid) {
+            // Create
+            if (!username || !password) { errEl.textContent = 'Username and password required'; errEl.style.display = 'block'; return; }
+            if (password.length < 8) { errEl.textContent = 'Password must be at least 8 characters'; errEl.style.display = 'block'; return; }
+            try {
+                var resp = await fetch('/api/admin/users', {
+                    method: 'POST', headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({username, email, password, role})
+                });
+                var r = await resp.json();
+                if (r.status === 'success') { closeModal(); loadUsers(); }
+                else { errEl.textContent = r.message || 'Failed'; errEl.style.display = 'block'; }
+            } catch(e) { errEl.textContent = 'Error: ' + e.message; errEl.style.display = 'block'; }
+        } else {
+            // Update
+            var body = {email: email, role: role};
+            if (password) body.password = password;
+            try {
+                var resp = await fetch('/api/admin/users/' + uid, {
+                    method: 'PATCH', headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify(body)
+                });
+                var r = await resp.json();
+                console.log('Update response:', r);
+                if (r.status === 'success') {
+                    closeModal();
+                    // Force reload with slight delay to ensure DB write completes
+                    setTimeout(loadUsers, 300);
+                } else {
+                    errEl.textContent = r.message || 'Update failed';
+                    errEl.style.display = 'block';
+                }
+            } catch(e) { errEl.textContent = 'Error: ' + e.message; errEl.style.display = 'block'; }
+        }
+    }
+
+    async function toggleUser(uid, activate) {
+        var action = activate ? 'enable' : 'disable';
+        if (!confirm('Are you sure you want to ' + action + ' this user?')) return;
+        await fetch('/api/admin/users/' + uid, {
+            method: 'PATCH', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({is_active: activate})
+        });
+        loadUsers();
+    }
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
+
+    // Init
+    loadUsers();
+    </script>
+</body>
+</html>
