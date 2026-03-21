@@ -1,0 +1,39 @@
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.so
+venv/
+env/
+.venv/
+
+# ── Environment & Secrets ──
+.env
+*.pem
+*.key
+
+# ── Database ──
+data/*.db
+data/*.db-journal
+*.sqlite3
+
+# ── Logs ──
+*.log
+logs/
+
+# ── OS ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Uploads & Temp ──
+uploads/
+tmp/
+*.tmp
+
